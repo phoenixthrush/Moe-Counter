@@ -1,6 +1,10 @@
-version: '3'
 services:
   moe-counter:
-    build: .
+    image: ubuntu:latest
     ports:
-      - "3000:3000"
+      - "4000:3000"
+    volumes:
+      - ./src:/app
+    command: >
+      sh -c "apt update && apt install -y make curl && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs && npm install --global yarn && cd /app && yarn install && yarn start"
+    restart: unless-stopped
